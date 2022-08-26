@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Button from "./components/Button";
-import './css/style.css'
+import "./css/style.css";
 
 class App extends Component {
   constructor(props) {
@@ -9,6 +9,7 @@ class App extends Component {
     this.state = {
       current: "0",
       previous: [],
+      nextIsReset: false
     };
   }
 
@@ -19,7 +20,17 @@ class App extends Component {
   addToCurrent = (symbol) => {
     console.log("addToCurrent");
 
-    this.setState({ current: this.state.current + symbol });
+    if (["/", "-", "+", "x"].indexOf(symbol) > -1) {
+      let { previous } = this.state;
+      previous.push(this.state.current + symbol);
+      this.setState({ previous: previous, nextIsReset: true });
+    } else {
+      if ((this.state.current === "0" && symbol !== "." || this.state.nextIsReset)) {
+        this.setState({ current: symbol, nextIsReset: false });
+      } else {
+        this.setState({ current: this.state.current + symbol });
+      }
+    }
   };
 
   render() {
@@ -29,7 +40,7 @@ class App extends Component {
       { symbol: "7", cols: 1, action: this.addToCurrent },
       { symbol: "8", cols: 1, action: this.addToCurrent },
       { symbol: "9", cols: 1, action: this.addToCurrent },
-      { symbol: "X", cols: 1, action: this.addToCurrent },
+      { symbol: "x", cols: 1, action: this.addToCurrent },
       { symbol: "4", cols: 1, action: this.addToCurrent },
       { symbol: "5", cols: 1, action: this.addToCurrent },
       { symbol: "6", cols: 1, action: this.addToCurrent },
@@ -45,11 +56,12 @@ class App extends Component {
 
     return (
       <div className="App">
-        <input
-          className="result"
-          type="text"
-          defaultValue={this.state.current}
-        />
+        {this.state.previous.length > 0 ? (
+          <div className="floaty-last">
+            {this.state.previous[this.state.previous.length - 1]}
+          </div>
+        ) : null}
+        <input className="result" type="text" value={this.state.current} />
 
         {buttons.map((btn, i) => {
           return (
