@@ -1,3 +1,7 @@
+.App{
+    margin: 20px;
+}
+
 .column-3 {
   width: 75%;
   float: left;
@@ -20,11 +24,12 @@
   background: #eee;
   font-size: 32px;
   color: #555;
+  /* border-radius: 50px; */
 }
 
 .result {
   height: 100px;
-  width: auto;
+  width: 100%;
   border: none;
   text-align: right;
   font-size: 32px;
@@ -40,4 +45,14 @@
   z-index: 99;
   top: 10px;
   color: #aaa;
+  margin-right: 15px;
+  float: right;
 }
+
+.bookmark{
+    float: right;
+    margin-top: 10px;
+    color: #555;
+}
+
+a:link { text-decoration: none; }

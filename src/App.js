@@ -85,6 +85,8 @@ class App extends Component {
             />
           );
         })}
+
+        <span className="bookmark">Github <a href="https://github.com/pardana" target={"_blank"}>@Pardana</a></span>
       </div>
     );
   }
